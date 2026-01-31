@@ -110,3 +110,9 @@ Web UI를 통해 고객이 메뉴(Coffee/Cocoa)와 온도(Hot/Ice)를 선택하�
 https://youtu.be/9yftWRMPXNc
 
 https://youtu.be/R9iazbjtELI
+
+https://youtu.be/fxtUGFrPTQ0
+
+https://youtu.be/fL8Ub9j5NYI
+
+https://youtu.be/-GVCgUJVy90
