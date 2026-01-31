@@ -1,6 +1,6 @@
 # ☕ Hand-drip Barista Robot (Doosan M0609)
 
-<img width="2027" height="1041" alt="image" src="[https://github.com/user-attachments/assets/7cb9bf21-05b0-4bc8-9f77-58d187e2faeb](https://github.com/user-attachments/assets/7cb9bf21-05b0-4bc8-9f77-58d187e2faeb)" />
+<img width="2027" height="1041" alt="image" src="https://github.com/user-attachments/assets/7cb9bf21-05b0-4bc8-9f77-58d187e2faeb" />
 
 
 <br>
@@ -41,10 +41,10 @@ Web UI를 통해 고객이 메뉴(Coffee/Cocoa)와 온도(Hot/Ice)를 선택하�
 
 ## 🛠 System Architecture
 
-<img width="2101" height="1085" alt="image" src="[https://github.com/user-attachments/assets/76fb035a-f830-4eb1-830a-075e198f2688](https://github.com/user-attachments/assets/76fb035a-f830-4eb1-830a-075e198f2688)" />
-<img width="1748" height="1047" alt="image" src="[https://github.com/user-attachments/assets/a4742ab9-6b6e-49c4-8bbe-5a0faec30adf](https://github.com/user-attachments/assets/a4742ab9-6b6e-49c4-8bbe-5a0faec30adf)" />
-<img width="1552" height="1078" alt="image" src="[https://github.com/user-attachments/assets/73aac713-89e8-4fd6-a5ba-fa7f726b46f5](https://github.com/user-attachments/assets/73aac713-89e8-4fd6-a5ba-fa7f726b46f5)" />
-<img width="2074" height="1058" alt="image" src="[https://github.com/user-attachments/assets/cfcce6a6-ac86-4b79-811b-4dadd5625414](https://github.com/user-attachments/assets/cfcce6a6-ac86-4b79-811b-4dadd5625414)" />
+<img width="2101" height="1085" alt="image" src="https://github.com/user-attachments/assets/76fb035a-f830-4eb1-830a-075e198f2688" />
+<img width="1748" height="1047" alt="image" src="https://github.com/user-attachments/assets/a4742ab9-6b6e-49c4-8bbe-5a0faec30adf" />
+<img width="1552" height="1078" alt="image" src="https://github.com/user-attachments/assets/73aac713-89e8-4fd6-a5ba-fa7f726b46f5" />
+<img width="2074" height="1058" alt="image" src="https://github.com/user-attachments/assets/cfcce6a6-ac86-4b79-811b-4dadd5625414" />
 
 본 시스템은 **사용자(Web)**, **클라우드(Firebase)**, **로봇 제어(ROS2)** 세 부분으로 구성됩니다.
 
@@ -73,21 +73,25 @@ Web UI를 통해 고객이 메뉴(Coffee/Cocoa)와 온도(Hot/Ice)를 선택하�
 
 ### 1. 로봇 드라이버 및 시각화 (Launch)
 실제 로봇(M0609)과 통신을 시작하고 제어 환경을 활성화합니다.
+
 ros2 launch dsr_bringup2 dsr_bringup2_rviz.launch.py mode:=real host:=192.168.1.100 port:=12345 model:=m0609
 
 
 ### 2. 로봇 동작 제어 노드 실행 (Controller)
 Firebase로부터 명령을 수신하여 로봇의 핸드드립 동작을 제어합니다.
+
 ros2 run dsr_rokey2 real_god_listener
 
 
 ### 3. 데이터 퍼블리셔 실행 (Publisher)
 로봇의 실시간 상태 데이터(관절 각도 등)를 Firebase로 전송합니다.
+
 ros2 run dsr_rokey2 firebase_publisher
 
 
 ### 4. 웹 UI 서버 구동 (Web Server)
 사용자 주문 및 모니터링을 위한 웹 페이지를 로컬 서버로 띄웁니다. (`index.html`이 있는 폴더에서 실행)
+
 python3 -m http.server 8000
 
 * **접속 URL:** `http://localhost:8000`
@@ -95,9 +99,11 @@ python3 -m http.server 8000
 ### 🔧 유틸리티 명령어 (Direct Teaching)
 로봇의 위치를 수동으로 조정하거나 직접교시 모드를 사용해야 할 때 유용한 명령어입니다.
 직접교시 모드 활성화 (Manual Mode)
+
 ros2 service call /dsr01/system/set_robot_mode dsr_msgs2/srv/SetRobotMode "{robot_mode: 0}"
 
 자동 운전 모드 전환 (Auto Mode)
+
 ros2 service call /dsr01/system/set_robot_mode dsr_msgs2/srv/SetRobotMode "{robot_mode: 1}"
 
 
@@ -108,7 +114,7 @@ ros2 service call /dsr01/system/set_robot_mode dsr_msgs2/srv/SetRobotMode "{robo
 ### 1. Real-time Order & Monitoring System
 별도의 키오스크 장비 없이 웹페이지를 통해 주문을 받고, 로봇의 현재 상태(준비 중, 드립 중, 완료 등)를 웹 화면에 실시간 프로그레스 바(Progress Bar)로 시각화했습니다.
 
-<img width="1991" height="1028" alt="image" src="[https://github.com/user-attachments/assets/8d8d4d7a-f96a-4ce8-868f-43c04b1a9938](https://github.com/user-attachments/assets/8d8d4d7a-f96a-4ce8-868f-43c04b1a9938)" />
+<img width="1991" height="1028" alt="image" src="https://github.com/user-attachments/assets/8d8d4d7a-f96a-4ce8-868f-43c04b1a9938" />
 
 
 ### 2. Hand-drip Algorithm (Spiral Motion)
@@ -123,7 +129,7 @@ ros2 service call /dsr01/system/set_robot_mode dsr_msgs2/srv/SetRobotMode "{robo
 
 현장에서 가장 중요한 **'작업 연속성'**을 보장하기 위해 **Smart Wrapping** 기술을 적용했습니다.
 
-<img width="2049" height="1064" alt="image" src="[https://github.com/user-attachments/assets/2d670209-8ec3-42f7-9f8c-9dee6f4224a1](https://github.com/user-attachments/assets/2d670209-8ec3-42f7-9f8c-9dee6f4224a1)" />
+<img width="2049" height="1064" alt="image" src="https://github.com/user-attachments/assets/2d670209-8ec3-42f7-9f8c-9dee6f4224a1" />
 
 
 * **Problem:** 기존 로봇 시스템은 비상 정지(E-Stop) 후 재가동 시, 처음부터 작업을 다시 시작해야 해서 재료 낭비와 시간 손실이 발생했습니다.
